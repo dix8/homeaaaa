@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// 个人资料表，存储个人信息和社交媒体链接
+model Profile {
+  id            Int      @id @default(autoincrement()) /// 个人资料ID，主键
+  name          String   /// 姓名
+  title         String   /// 职位头衔
+  bio           String   @db.Text /// 个人简介
+  avatar        String?  /// 当前头像URL
+  email         String   /// 联系邮箱
+  github        String?  /// GitHub主页链接
+  linkedin      String?  /// LinkedIn主页链接
+  twitter       String?  /// Twitter主页链接
+  telegram      String?  /// Telegram链接
+  youtube       String?  /// YouTube频道链接
+  bilibili      String?  /// Bilibili主页链接
+  avatarSource        String?  @default("upload") /// 头像来源：upload(上传), url(图片链接), qq(QQ头像), gravatar(Gravatar)
+  avatarQQNumber      String?  /// QQ号码，用于获取QQ头像
+  avatarGravatarEmail String?  /// Gravatar邮箱
+  avatarGravatarServer String? @default("https://www.gravatar.com/avatar/") /// Gravatar服务器地址
+  avatarCustomUrl     String?  /// 自定义头像URL
+  createdAt DateTime @default(now()) /// 创建时间
+  updatedAt DateTime @updatedAt /// 更新时间
+}
+
+/// 技能表，存储专业技能信息
+model Skill {
+  id          Int      @id @default(autoincrement()) /// 技能ID，主键
+  name        String   /// 技能名称
+  category    String   /// 技能分类，如：前端、后端、数据库等
+  proficiency Int      /// 熟练度(0-100)
+  createdAt   DateTime @default(now()) /// 创建时间
+  updatedAt   DateTime @updatedAt /// 更新时间
+}
+
+/// 项目表，存储项目展示信息
+model Project {
+  id           Int      @id @default(autoincrement()) /// 项目ID，主键
+  title        String   /// 项目标题
+  description  String   @db.Text /// 项目描述
+  imageUrl     String?  /// 项目预览图URL
+  projectUrl   String?  /// 项目链接
+  technologies String   @db.Text /// 使用的技术栈，JSON格式存储
+  createdAt    DateTime @default(now()) /// 创建时间
+  updatedAt    DateTime @updatedAt /// 更新时间
+}
+
+/// 用户表，存储后台管理用户信息
+model User {
+  id        Int      @id @default(autoincrement()) /// 用户ID，主键
+  email     String   @unique /// 用户邮箱，用于登录
+  password  String   /// 用户密码，经过哈希处理
+  createdAt DateTime @default(now()) /// 创建时间
+  updatedAt DateTime @updatedAt /// 更新时间
+}
+
+/// 网站设置表，存储网站基本信息
+model SiteSettings {
+  id          Int      @id @default(autoincrement()) /// 设置ID，主键
+  title       String   /// 网站标题
+  pageTitle   String?  /// 页面标题，用于SEO
+  favicon     String?  /// 网站图标URL
+  logo        String?  /// 网站Logo URL
+  description String?  /// 网站描述
+  keywords    String?  /// 网站关键词
+  copyright   String?  // 版权信息
+  icp         String?  // ICP备案号
+  gongan      String?  // 公安备案号
+  createdAt   DateTime @default(now()) /// 创建时间
+  updatedAt   DateTime @updatedAt /// 更新时间
+} 

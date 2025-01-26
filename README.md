@@ -1,0 +1,176 @@
+# Personal Portfolio Website
+
+一个现代化的个人作品集网站，包含前端展示和后台管理功能。
+
+## 技术栈
+
+### 前端
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind CSS
+
+### 后端
+- Node.js
+- Express
+- Prisma
+- MySQL
+
+## 项目结构
+
+    personal-website/
+    ├── frontend/                 # 前端项目
+    │   ├── components/          # React组件
+    │   │   ├── Header.tsx      # 导航头部
+    │   │   ├── ProfileSection.tsx  # 个人信息展示
+    │   │   └── SkillsSection.tsx   # 技能展示
+    │   ├── pages/              # 页面文件
+    │   │   ├── index.tsx       # 主页
+    │   │   ├── about.tsx       # 关于页面
+    │   │   └── _app.tsx        # 应用入口
+    │   ├── types/              # TypeScript类型定义
+    │   └── styles/             # 样式文件
+    ├── backend/                 # 后端项目
+    │   ├── src/
+    │   │   ├── controllers/    # 控制器
+    │   │   ├── routes/        # 路由
+    │   │   └── index.ts       # 入口文件
+    │   ├── prisma/            # Prisma配置和迁移
+    │   └── .env               # 环境变量
+    └── docs/                   # 项目文档
+
+## 快速开始
+
+### 环境要求
+- Node.js >= 18.17.0
+- MySQL >= 8.0
+- npm >= 9.6.7
+
+### 安装步骤
+
+1. 克隆项目
+    ```bash
+    git clone <repository-url>
+    cd personal-website
+    ```
+
+2. 前端设置
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
+    ```
+
+3. 后端设置
+    ```bash
+    cd backend
+    npm install
+    # 配置 .env 文件
+    npm run dev
+    ```
+
+4. 数据库设置
+    ```sql
+    # 在 MySQL 中创建数据库
+    CREATE DATABASE personal_website;
+
+    # 运行 Prisma 迁移
+    npx prisma migrate dev
+    ```
+
+## 开发指南
+
+### 前端开发
+
+1. 组件结构
+- `Header.tsx`: 网站导航栏
+- `ProfileSection.tsx`: 个人信息展示区
+- `SkillsSection.tsx`: 技能展示区
+
+2. 数据类型
+    ```typescript
+    // types/index.ts
+    interface Profile {
+      id: number;
+      name: string;
+      title: string;
+      bio: string;
+      // ...
+    }
+
+    interface Skill {
+      id: number;
+      name: string;
+      category: string;
+      proficiency: number;
+    }
+    ```
+
+### 后端开发
+
+1. 数据模型
+    ```prisma
+    // prisma/schema.prisma
+    model Profile {
+      id        Int      @id @default(autoincrement())
+      name      String
+      title     String
+      // ...
+    }
+    ```
+
+2. API 端点
+- GET /api/profile - 获取个人信息
+- GET /api/skills - 获取技能列表
+- POST /api/admin/login - 管理员登录
+
+## 部署指南
+
+1. 前端部署
+    ```bash
+    cd frontend
+    npm run build
+    npm start
+    ```
+
+2. 后端部署
+    ```bash
+    cd backend
+    npm run build
+    npm start
+    ```
+
+## 待办事项
+
+- [x] 基础项目结构搭建
+- [x] 个人信息展示组件
+- [x] 技能展示组件
+- [ ] 项目展示组件
+- [ ] 后端 API 实现
+- [ ] 管理后台开发
+- [ ] 文件上传功能
+- [ ] 部署配置
+
+## 开发笔记
+
+### 2024-03-xx
+- 初始化项目
+- 创建基础组件
+- 设置 Prisma 模型
+
+### 待解决问题
+1. 图片上传功能实现
+2. 管理后台认证机制
+3. API 缓存策略
+
+## 贡献指南
+
+1. Fork 项目
+2. 创建特性分支
+3. 提交更改
+4. 推送到分支
+5. 创建 Pull Request
+
+## 许可证
+
+MIT License 
